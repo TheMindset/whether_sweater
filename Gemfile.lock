@@ -42,21 +42,35 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     annotate (3.0.3)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
     arel (9.0.0)
     ast (2.4.0)
+    bindex (0.8.1)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
     builder (3.2.3)
     byebug (11.0.1)
+    capybara (3.29.0)
+      addressable
+      mini_mime (>= 0.1.3)
+      nokogiri (~> 1.8)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      regexp_parser (~> 1.5)
+      xpath (~> 3.2)
+    childprocess (3.0.0)
     codecov (0.1.16)
       json
       simplecov
       url
+    coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crass (1.0.5)
+    database_cleaner (1.7.0)
     diff-lcs (1.3)
     docile (1.3.2)
     erubi (1.9.0)
@@ -100,6 +114,12 @@ GEM
     parser (2.6.5.0)
       ast (~> 2.4.0)
     pg (1.1.4)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-rails (0.3.9)
+      pry (>= 0.10.4)
+    public_suffix (4.0.1)
     puma (3.12.1)
     rack (2.0.7)
     rack-test (1.1.0)
@@ -133,6 +153,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    regexp_parser (1.6.0)
     rspec-core (3.9.0)
       rspec-support (~> 3.9.0)
     rspec-expectations (3.9.0)
@@ -150,6 +171,8 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.0)
+    rspec_junit_formatter (0.4.1)
+      rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (0.76.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
@@ -161,6 +184,10 @@ GEM
       rubocop (>= 0.68.1)
     ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
+    rubyzip (1.3.0)
+    selenium-webdriver (3.142.6)
+      childprocess (>= 0.5, < 4.0)
+      rubyzip (>= 1.2.2)
     shoulda-matchers (3.1.3)
       activesupport (>= 4.0.0)
     simplecov (0.16.1)
@@ -185,9 +212,20 @@ GEM
       thread_safe (~> 0.1)
     unicode-display_width (1.6.0)
     url (0.3.2)
+    web-console (3.7.0)
+      actionview (>= 5.0)
+      activemodel (>= 5.0)
+      bindex (>= 0.4.0)
+      railties (>= 5.0)
+    webdrivers (3.9.4)
+      nokogiri (~> 1.6)
+      rubyzip (~> 1.0)
+      selenium-webdriver (~> 3.0)
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
+    xpath (3.2.0)
+      nokogiri (~> 1.8)
 
 PLATFORMS
   ruby
@@ -196,22 +234,29 @@ DEPENDENCIES
   annotate
   bootsnap (>= 1.1.0)
   byebug
+  capybara (>= 2.15)
   codecov
+  database_cleaner (~> 1.7)
   factory_bot_rails (~> 4.0)
   faker (~> 1.8, >= 1.8.7)
   figaro
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
+  pry-rails (~> 0.3.9)
   puma (~> 3.11)
   rails (~> 5.2.3)
   rspec-rails (~> 3.7, >= 3.7.2)
+  rspec_junit_formatter
   rubocop
   rubocop-rspec
+  selenium-webdriver
   shoulda-matchers (~> 3.1)
   simplecov (~> 0.16.1)
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
+  web-console (>= 3.3.0)
+  webdrivers (~> 3.0)
 
 BUNDLED WITH
    2.0.2
