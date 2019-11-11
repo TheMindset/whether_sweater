@@ -6,21 +6,20 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 File.read('./.ruby-version')
 
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'fast_jsonapi'
+gem 'figaro'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.3'
-gem 'figaro'
-gem 'fast_jsonapi'
-
 
 group :development, :test do
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails', '~> 4.0'
   gem 'faker', '~> 1.8', '>= 1.8.7'
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-rails', '~> 0.3.9'
+  gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
-  gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
-  gem 'pry-rails', '~> 0.3.9'
   gem 'vcr'
   gem 'webmock'
 end

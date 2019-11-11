@@ -1,0 +1,14 @@
+{
+  "name": "whether_sweater",
+  "private": true,
+  "dependencies": {
+    "husky": "^3.0.9"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "rubocop",
+      "pre-push": "rspec"
+    }
+  },
+  "devDependencies": {}
+}
