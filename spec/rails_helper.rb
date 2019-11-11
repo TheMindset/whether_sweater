@@ -43,3 +43,9 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+def stub_json(url, filename)
+  json_response = File.open(filename)
+  stub_request(:get, url).
+    to_return(status: 200, body: json_response)
+end
