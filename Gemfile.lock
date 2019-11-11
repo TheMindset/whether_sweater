@@ -68,6 +68,8 @@ GEM
     faker (1.9.6)
       i18n (>= 0.7)
     ffi (1.11.1)
+    figaro (1.1.1)
+      thor (~> 0.14)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.7.0)
@@ -197,6 +199,7 @@ DEPENDENCIES
   codecov
   factory_bot_rails (~> 4.0)
   faker (~> 1.8, >= 1.8.7)
+  figaro
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
