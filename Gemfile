@@ -10,6 +10,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.3'
 gem 'figaro'
+gem 'fast_jsonapi'
 
 
 group :development, :test do
@@ -20,7 +21,8 @@ group :development, :test do
   gem 'rubocop-rspec', require: false
   gem 'rspec-rails', '~> 3.7', '>= 3.7.2'
   gem 'pry-rails', '~> 0.3.9'
-
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do
