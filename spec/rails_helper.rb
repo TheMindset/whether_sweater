@@ -10,6 +10,8 @@ Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 require 'rspec/rails'
 require 'faker'
 require 'simplecov'
+require 'webmock/rspec'
+
 SimpleCov.start do
   add_filter "/spec/"
 end

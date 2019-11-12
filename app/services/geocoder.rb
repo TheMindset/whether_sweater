@@ -5,17 +5,22 @@ class Geocoder
     @location = location
   end
 
-  def coordinate
-    get_json("geocode/json")
+  def coords
+    get_json("maps/api/geocode/json")
   end
 
   private
 
-  def connection
-    @connection = Faradey.new(url: "https://maps.googleapis.com/maps/api/") do |faradey|
-      faradey.params["key"] = ENV['GEOCODING_API_KER']
-      faradey.params["adress"] = @location
-      faradey.adapter Faradey.default_adapter
+  def conn
+    @conn ||= Faraday.new(url: "https://maps.googleapis.com/") do |faraday|
+      faraday.params["key"] = ENV['GEOCODING_API_KEY']
+      faraday.params["address"] = @location
+      faraday.adapter Faraday.default_adapter
     end
+  end
+
+  def get_json(url)
+    response = conn.get(url)
+    JSON.parse(response.body, symbolize_names: true)
   end
 end
