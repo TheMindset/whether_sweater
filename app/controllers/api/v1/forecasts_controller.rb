@@ -4,14 +4,8 @@ module Api
   module V1
     class ForecastsController < ApplicationController
       def show
-        coordinate = geocoder(params[:location]).coords[:results][0][:geometry][:location]
-        render json: coordinate
-      end
-
-      private
-
-      def geocoder(location)
-        @geocoder ||= Geocoder.new(location)
+        facade = ForecastFacade.new(params[:location])
+        render json: ForecastSerializer.serialize(facade.location_forecast)
       end
     end
   end
