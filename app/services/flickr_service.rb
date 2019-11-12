@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FlickrService
-  def initialize(lat, long, tags = 'downtown, sky')
+  def initialize(lat, long, tags = 'downtown,sky')
     @lat = lat
     @long = long
     @tags = tags
@@ -9,7 +9,7 @@ class FlickrService
 
   def image_search
     parameter = {
-      method: 'flickr.photos.searchs',
+      method: 'flickr.photos.search',
       lat: @lat,
       long: @long,
       per_page: 15,
@@ -24,8 +24,10 @@ class FlickrService
 
   private
 
+  attr_reader :lat, :long
+
   def conn
-    @conn ||= Faraday.new(url: "https://www.flickr.com/services/rest/") do |faraday|
+    @conn ||= Faraday.new(url: "https://www.flickr.com/services/rest/?") do |faraday|
       faraday.params['api_key'] = ENV['FLICKR_API_KEY']
       faraday.params['format'] = 'json'
       faraday.params['nojsoncallback'] = 1
@@ -33,8 +35,8 @@ class FlickrService
     end
   end
 
-  def get_json(_parameter, url = '')
-    response = conn.get(url)
+  def get_json(parameter, url = '')
+    response = conn.get(url, parameter)
     JSON.parse(response.body, symbolize_names: true)
   end
 end

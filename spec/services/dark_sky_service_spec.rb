@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe DarkSky do
+RSpec.describe DarkSkyService do
   before do
     stub_json("https://api.darksky.net/forecast/#{ENV['DARKSKY_API_KEY']}/48.856614,2.3522219?lang=fr&units=si",
               "./fixtures/paris_forecast.json")

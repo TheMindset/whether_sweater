@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Geocoder do
+RSpec.describe GeocoderService do
   before do
     stub_json("https://maps.googleapis.com/maps/api/geocode/json?address=Paris&key=#{ENV['GEOCODING_API_KEY']}",
               "./fixtures/paris_coords.json")
