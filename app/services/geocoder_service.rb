@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Geocoder
+class GeocoderService
   def initialize(location)
     @location = location
   end

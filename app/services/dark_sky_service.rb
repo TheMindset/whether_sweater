@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DarkSky
+class DarkSkyService
   def retreive_forecast(formatted_lat_long)
     get_json("/forecast/#{ENV['DARKSKY_API_KEY']}/#{formatted_lat_long}?lang=fr&units=si")
   end

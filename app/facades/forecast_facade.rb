@@ -24,10 +24,10 @@ class ForecastFacade
   end
 
   def geocoder
-    @geocoder ||= Geocoder.new(@location)
+    @geocoder ||= GeocoderService.new(@location)
   end
 
   def dark_sky
-    @dark_sky ||= DarkSky.new
+    @dark_sky ||= DarkSkyService.new
   end
 end
