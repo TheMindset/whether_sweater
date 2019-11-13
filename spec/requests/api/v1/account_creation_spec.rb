@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'User API endpoint', type: :feature do
+RSpec.describe 'User API endpoint', type: :request do
   it "#create account with a valid params" do
     params = {
       email: 'test@yopmail.com',
@@ -12,9 +12,9 @@ RSpec.describe 'User API endpoint', type: :feature do
 
     post '/api/v1/users', params: params
 
-    expect(repsonse).to be_successful
+    expect(response).to be_successful
 
-    response_body = JSON.parse(repsonse.body, symbolize_names: true)
+    response_body = JSON.parse(response.body, symbolize_names: true)
 
     expect(response_body).to have_key(:api_key)
   end
@@ -26,9 +26,9 @@ RSpec.describe 'User API endpoint', type: :feature do
 
     post '/api/v1/users', params: params
 
-    expect(repsonse.status).to eq(400)
+    expect(response.status).to eq(400)
 
-    response_body = JSON.parse(repsonse.body, symbolize_names: true)
+    response_body = JSON.parse(response.body, symbolize_names: true)
 
     expect(response_body[:error]).to eq('Failed to create user')
   end
