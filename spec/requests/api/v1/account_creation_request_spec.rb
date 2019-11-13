@@ -12,7 +12,7 @@ RSpec.describe 'User API endpoint', type: :request do
 
     post '/api/v1/users', params: params
 
-    expect(response).to be_successful
+    expect(response.status).to eq(201)
 
     response_body = JSON.parse(response.body, symbolize_names: true)
 
