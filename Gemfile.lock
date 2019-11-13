@@ -49,6 +49,7 @@ GEM
       rake (>= 10.4, < 14.0)
     arel (9.0.0)
     ast (2.4.0)
+    bcrypt (3.1.13)
     bindex (0.8.1)
     bootsnap (1.4.5)
       msgpack (~> 1.0)
@@ -246,6 +247,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  bcrypt
   bootsnap (>= 1.1.0)
   byebug
   capybara (>= 2.15)

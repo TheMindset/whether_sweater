@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 File.read('./.ruby-version')
 
+gem 'bcrypt'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'faraday'
 gem 'fast_jsonapi'
