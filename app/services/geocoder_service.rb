@@ -13,7 +13,7 @@ class GeocoderService
 
   def conn
     @conn ||= Faraday.new(url: "https://maps.googleapis.com/") do |faraday|
-      faraday.params["key"] = ENV['GEOCODING_API_KEY']
+      faraday.params["key"] = ENV['GOOGLE_MAPS_API_KEY']
       faraday.params["address"] = @location
       faraday.adapter Faraday.default_adapter
     end
