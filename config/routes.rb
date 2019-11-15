@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       get 'background', to: 'backgrounds#show'
       post 'users', to: 'users#create'
       post 'sessions', to: 'sessions#create'
-      get '/road_trip', to: 'road_trips#create'
+      post '/road_trip', to: 'road_trips#create'
     end
   end
 end
