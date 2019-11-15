@@ -63,6 +63,3 @@ Rails/Output:
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: nested
-  
-Style/GuardClause:
-  Enabled: false
