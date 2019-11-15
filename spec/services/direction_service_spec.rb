@@ -2,11 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe DirectionService do
-  before do
-    stub_json("https://maps.googleapis.com/maps/api/directions/json?origin=Kigali&destination=Nairobi&key=AIzaSyCAz5bajiZdnlec9CPk-RFpW4ZvIcjBmJk&units=metric", "./fixtures/direction.json")
-  end
-
+RSpec.describe DirectionService, :vcr, type: :request do
   road_trip_params = { "origin": "Kigali", "destination": "Nairobi" }
 
   let!(:road_trip) { described_class.new(road_trip_params) }
@@ -15,11 +11,11 @@ RSpec.describe DirectionService do
     expect(road_trip).to be_a(described_class)
   end
 
-  it "retreive images for a specific location" do
+  it "retreive the drive for a specific address" do
     direction = road_trip.retreive_road_trip
 
     expect(direction).to be_a(Hash)
-    # expect(first_picture[:photos][:photo][0][:id]).to eq("45076145644")
-    # expect(first_picture[:photos][:photo][0][:title]).to eq("Paris sera toujours Paris")
+    expect(direction[:start_address]).to eq("Kigali, Rwanda")
+    expect(direction[:end_address]).to eq("Nairobi, Kenya")
   end
 end
