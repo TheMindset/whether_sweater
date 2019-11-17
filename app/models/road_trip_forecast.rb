@@ -26,7 +26,7 @@ class RoadTripForecast
     arrival_weather[:temperature]
   end
 
-  def apparent_tsemperature
+  def apparent_temperature
     arrival_weather[:apparentTemperature]
   end
 
