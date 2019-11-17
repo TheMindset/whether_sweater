@@ -6,7 +6,9 @@ class BackgroundFacade
   end
 
   def background_images
-    @background_images ||= AlbumOfLocation.new(images).bulk_images
+    images.map do |image|
+      AlbumOfLocation.new(image)
+    end
   end
 
   def images
