@@ -6,7 +6,11 @@ class BackgroundFacade
   end
 
   def background_images
-    @background_images ||= flickr.image_search[:photos][:photo]
+    @background_images ||= AlbumOfLocation.new(images).bulk_images
+  end
+
+  def images
+    @images ||= flickr.image_search[:photos][:photo][0..5]
   end
 
   private
