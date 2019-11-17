@@ -5,7 +5,7 @@ class LocationForecast
 
   def initialize(forecast)
     @currently = forecast[:currently]
-    @hourly = forecast[:hourly][:data]
-    @daily = forecast[:daily][:data]
+    @hourly = forecast[:hourly][:data][0..7]
+    @daily = forecast[:daily][:data][1..5]
   end
 end
