@@ -18,6 +18,26 @@ class RoadTripForecast
     end
   end
 
+  def summary
+    arrival_weather[:summary]
+  end
+
+  def temperature
+    arrival_weather[:temperature]
+  end
+
+  def apparent_tsemperature
+    arrival_weather[:apparentTemperature]
+  end
+
+  def visibility
+    arrival_weather[:visibility]
+  end
+
+  def uv_index
+    arrival_weather[:uvIndex]
+  end
+
   private
 
   attr_reader :duration_drive, :forecast
