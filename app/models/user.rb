@@ -17,9 +17,9 @@ class User < ApplicationRecord
   validates :password, presence: true
   has_secure_password
 
-  after_create :update_api_key
+  before_create :create_api_key
 
-  def update_api_key
-    update(api_key: SecureRandom.hex(13))
+  def create_api_key
+    self.api_key = SecureRandom.hex(13)
   end
 end

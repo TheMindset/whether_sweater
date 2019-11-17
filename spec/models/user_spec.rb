@@ -22,7 +22,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'instance methods' do
-    it '#update_api_key' do
+    it '#create_api_key' do
       new_params = {
         email: 'test@yopmail.com',
         password: 'password',
