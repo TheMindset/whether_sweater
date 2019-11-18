@@ -6,10 +6,14 @@ class ForecastFacade
   end
 
   def location_forecast
-    LocationForecast.new(forecast)
+    LocationForecast.new(location_address, forecast)
   end
 
   private
+
+  def location_address
+    geocoder.coords[:results][0][:formatted_address]
+  end
 
   def forecast
     dark_sky.retreive_forecast(formatted_lat_long)
