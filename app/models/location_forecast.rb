@@ -11,12 +11,8 @@ class LocationForecast
     @daily = forecast[:daily][:data][1..5]
   end
 
-  def date
-    Time.at(currently[:time]).to_datetime.strftime('%D')
-  end
-
-  def time
-    Time.at(currently[:time]).to_datetime.strftime('%I:%M %p')
+  def time_units
+    currently[:time]
   end
 
   def summary
@@ -27,54 +23,31 @@ class LocationForecast
     currently[:icon]
   end
 
-  def temperature
-    currently[:temperature].round
+  def temp
+    currently[:temperature]
   end
 
   def forecast_high
-    daily[0][:temperatureHigh].round
+    daily[0][:temperatureHigh]
   end
 
   def forecast_low
-    daily[0][:temperatureLow].round
+    daily[0][:temperatureLow]
   end
 
   def feels_like
-    currently[:apparentTemperature].round
+    currently[:apparentTemperature]
   end
 
   def percent_humidity
-    (currently[:humidity] * 100).to_i
+    currently[:humidity]
   end
 
   def visibility_miles
-    currently[:visibility].round(2)
+    currently[:visibility]
   end
 
   def uv_index
     currently[:uvIndex]
-  end
-
-  def hourly_forecast
-    hourly.map do |forecast|
-      {
-        time: Time.at(forecast[:time]).to_datetime.strftime('%I:%M %p'),
-        temperature: forecast[:temperature].round,
-        uv_index: forecast[:uvIndex]
-      }
-    end
-  end
-
-  def daily_forecast
-    daily.map do |forecast|
-      {
-        day: Time.at(forecast[:time]).to_datetime.strftime('%A'),
-        summary: forecast[:summary],
-        icon: forecast[:icon],
-        percent_humidity: (forecast[:humidity] * 100).to_i,
-        forecast_high: forecast[:temperatureHigh].round,
-        forecast_low: forecast[:temperatureLow].round
-      }
-    end
   end
 end
