@@ -6,9 +6,7 @@ class ForecastSerializer
 
   attributes :address,
              :summary,
-             :icon,
-             :hourly_forecast,
-             :daily_forecast
+             :icon
 
   attribute :date do |object|
     Time.at(object.time_units).to_datetime.strftime('%D')

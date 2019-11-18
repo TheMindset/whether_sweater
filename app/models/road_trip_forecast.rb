@@ -4,12 +4,6 @@ class RoadTripForecast
   attr_reader :origin,
               :destination,
               :trip_duration_text,
-              :summary,
-              :icon,
-              :temperature,
-              :feels_like,
-              :visibility_miles,
-              :uv_index,
               :id
 
   def initialize(drive, forecast)
@@ -19,12 +13,30 @@ class RoadTripForecast
     @trip_duration_text = drive[:duration][:text]
     @forecast = forecast
     @trip_duration_value = drive[:duration][:value]
-    @summary = arrival_weather[:summary]
-    @icon = arrival_weather[:icon]
-    @temperature = arrival_weather[:temperature]
-    @feels_like = arrival_weather[:apparentTemperature]
-    @visibility_miles = arrival_weather[:visibility]
-    @uv_index = arrival_weather[:uvIndex]
+  end
+
+  def summary
+    arrival_weather[:summary]
+  end
+
+  def icon
+    arrival_weather[:icon]
+  end
+
+  def temperature
+    arrival_weather[:temperature]
+  end
+
+  def feels_like
+    arrival_weather[:apparentTemperature]
+  end
+
+  def visibility_miles
+    arrival_weather[:visibility]
+  end
+
+  def uv_index
+    arrival_weather[:uvIndex]
   end
 
   private

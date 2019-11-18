@@ -7,11 +7,23 @@ class RoadTripForecastSerializer
 
   attributes :origin,
              :destination,
-             :trip_duration_text,
-             :icon,
-             :summary,
-             :temperature,
-             :feels_like,
-             :visibility_miles,
-             :uv_index
+             :trip_duration_text
+
+  attribute :icon
+
+  attribute :summary
+
+  attribute :temperature do |object|
+    object.temperature.round
+  end
+
+  attribute :feels_like do |object|
+    object.feels_like.round
+  end
+
+  attribute :visibility_miles do |object|
+    object.visibility_miles.round(2)
+  end
+
+  attribute :uv_index
 end
