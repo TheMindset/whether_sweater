@@ -6,6 +6,6 @@ class AlbumOfLocation
   def initialize(image)
     @id = nil
     @alt = image[:title]
-    @url = "https://www.flickr.com/photos/#{image[:owner]}/#{image[:id]}"
+    @url = "https://farm#{image[:farm]}.staticflickr.com/#{image[:server]}/#{image[:id]}_#{image[:secret]}.jpg"
   end
 end
