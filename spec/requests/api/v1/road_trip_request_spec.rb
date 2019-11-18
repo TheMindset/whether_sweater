@@ -17,8 +17,8 @@ RSpec.describe 'Road trip API endpoint', :vcr, type: :request do
     expect(response.status).to eq(200)
 
     response_body = JSON.parse(response.body, symbolize_names: true)
-    expect(response_body[:data][:origin]).to eq("Paris, France")
-    expect(response_body[:data][:destination]).to eq("Lyon, France")
+    expect(response_body[:data][:attributes][:origin]).to eq("Paris, France")
+    expect(response_body[:data][:attributes][:destination]).to eq("Lyon, France")
   end
 
   it "#deliver informations about raod trip when unvalid params is sent" do
