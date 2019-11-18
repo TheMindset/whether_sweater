@@ -6,10 +6,13 @@ class ForecastFacade
   end
 
   def location_forecast
+    Rails.cache.fetch("forecast-locaction-for-#{location}", expires_in: 2.minutes)
     LocationForecast.new(location_address, forecast)
   end
 
   private
+
+  attr_reader :location
 
   def location_address
     geocoder.coords[:results][0][:formatted_address]
