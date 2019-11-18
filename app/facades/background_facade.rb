@@ -12,10 +12,14 @@ class BackgroundFacade
   end
 
   def images
-    @images ||= flickr.image_search[:photos][:photo][0..5]
+    Rails.cache.fetch("background-images-#{location}", expires_in: 24.hours) do
+      flickr.image_search[:photos][:photo][0..5]
+    end
   end
 
   private
+
+  attr_reader :location
 
   def flickr
     @flickr ||= FlickrService.new(location_lat, location_long,)
@@ -34,6 +38,6 @@ class BackgroundFacade
   end
 
   def geocoder
-    @geocoder ||= GeocoderService.new(@location)
+    @geocoder ||= GeocoderService.new(location)
   end
 end
