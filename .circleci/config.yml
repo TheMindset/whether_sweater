@@ -16,7 +16,7 @@ jobs:
         environment:
           POSTGRES_USER: circleci_user
           POSTGRES_PASSWORD: password
-          POSTGRES_DB: whether_sweater_db
+          POSTGRES_DB: whether_sweater_circleci_db
 
     steps:
       - checkout
