@@ -1,47 +1,73 @@
 version: 2
+orbs:
+  codecov: codecov/codecov@1.0.4
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.4.1-node-browsers
+      - image: circleci/ruby:2.6.2-node-browsers-legacy
         environment:
-          BUNDLER_VERSION: 2.0.1
-          PGHOST: localhost
-          PGUSER: whether_sweater_final
           RAILS_ENV: test
-          TZ: America/Denver
-      - image: postgres:11.3
+          PGHOST: 127.0.0.1
+          POSTGRES_USER: circleci_user
+          POSTGRES_PASSWORD: password
+      - image: postgres:11.4
         environment:
-          POSTGRES_USER: whether_sweater_final
-          POSTGRES_DB: whether_sweater_final_test
-          POSTGRES_PASSWORD: ''
-
-    working_directory: ~/whether_sweater_final
+          POSTGRES_USER: circleci_user
+          POSTGRES_DB: whether_sweater_test
+          POSTGRES_PASSWORD: password
 
     steps:
       - checkout
 
-      # Restore Cached Dependencies
-      - type: cache-restore
-        name: Restore bundle cache
-        key: whether_sweater_final-{{ checksum "Gemfile.lock" }}
+       # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-r-{{ checksum "Gemfile.lock" }}-y-{{ checksum "yarn.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
 
-      # Bundle install dependencies
+      # Which version of bundler?
       - run:
+          name: update bundler version
+          command: gem install bundler:2.0.1
+
+      - run:
+          name: Which bundler?
+          command: bundle -v
+
+      - run:
+          name: install dependencies
+          command: bundle check || bundle install --jobs=4 --retry=3 --path vendor/bundle
+      # - run:
+      #     name: install dependencies
+      #     command: |
+      #       yarn install --frozen-lockfile
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+            - ~/.cache
+          key: v1-dependencies-r-{{ checksum "Gemfile.lock" }}-y-{{ checksum "yarn.lock" }}
+        
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      # Database setup
+      - run: bundle exec rails db:create db:migrate
+
+      # Analyze source code & clean code
+      - run:
+          name: run linting
           command: |
-            gem install bundler:2.0.1
-            bundle install
-      # Cache dependencies
-      - type: cache-save
-        name: Store bundle cache
-        key: whether_sweater_final-{{ checksum "Gemfile.lock" }}
-        paths:
-          - vendor/bundle
-
-      # Wait for the database
-      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
-
-      # Setup the database
-      - run: bundle exec rake db:{drop,create,migrate}
-
-      # Run the tests
-      - run: bundle exec rake
+            bundle exec rubocop
+      # run tests!
+      - run:
+          name: run tests
+          command: |
+            mkdir /tmp/test-results
+            COVERAGE=true bundle exec rspec --format progress \
+                            --format RspecJunitFormatter \
+                            --out /tmp/test-results/rspec.xml \
+                            --format progress
+                            
