@@ -2,12 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe FlickrService do
-  before do
-    stub_json("https://www.flickr.com/services/rest/?api_key=#{ENV['FLICKR_API_KEY']}&content_type=1&format=json&lat=48.856614&long=2.3522219&method=flickr.photos.search&nojsoncallback=1&per_page=15&safe_search=1&sort=interestingness-desc&tags=downtown,sky",
-              "./fixtures/paris_pictures.json")
-  end
-
+RSpec.describe FlickrService, :vcr do
   let!(:pictures) { described_class.new(48.856614, 2.3522219, 'downtown,sky') }
 
   it "exists" do
