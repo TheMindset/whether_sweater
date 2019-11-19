@@ -12,7 +12,7 @@ jobs:
           POSTGRES_PASSWORD: password
       - image: postgres:11.4
         environment:
-          POSTGRES_USER: circleci_user
+          POSTGRES_USER: whether_sweater
           POSTGRES_DB: whether_sweater_test
           POSTGRES_PASSWORD: password
 
