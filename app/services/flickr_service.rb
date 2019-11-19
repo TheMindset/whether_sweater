@@ -10,13 +10,13 @@ class FlickrService
   def image_search
     parameter = {
       method: 'flickr.photos.search',
-      lat: @lat,
-      long: @long,
-      per_page: 15,
       sort: 'interestingness-desc',
+      tags: tags,
+      lat: lat,
+      lon: long,
+      per_page: 15,
       content_type: 1,
-      safe_search: 1,
-      tags: @tags
+      safe_search: 1
     }
 
     get_json(parameter)
@@ -24,7 +24,7 @@ class FlickrService
 
   private
 
-  attr_reader :lat, :long
+  attr_reader :lat, :long, :tags
 
   def conn
     @conn ||= Faraday.new(url: "https://www.flickr.com/services/rest/?") do |faraday|
