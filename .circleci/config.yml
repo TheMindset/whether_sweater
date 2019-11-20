@@ -20,28 +20,54 @@ jobs:
     steps:
       - checkout
 
-      # Restore Cached Dependencies
-      - type: cache-restore
-        name: Restore bundle cache
-        key: whether_sweater_final-{{ checksum "Gemfile.lock" }}
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-r-{{ checksum "Gemfile.lock" }}-y-{{ checksum "yarn.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
 
-      # Bundle install dependencies
+      # Which version of bundler?
       - run:
-          command: |
-            gem install bundler:2.0.1
-            bundle install
-      # Cache dependencies
-      - type: cache-save
-        name: Store bundle cache
-        key: whether_sweater_final-{{ checksum "Gemfile.lock" }}
-        paths:
-          - vendor/bundle
+          name: update bundler version
+          command: gem install bundler:2.0.1
+
+      - run:
+          name: Which bundler?
+          command: bundle -v
+
+      - run:
+          name: install dependencies
+          command: bundle check || bundle install --jobs=4 --retry=3 --path vendor/bundle
+      # - run:
+      #     name: install dependencies
+      #     command: |
+      #       yarn install --frozen-lockfile
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+            - ~/.cache
+          key: v1-dependencies-r-{{ checksum "Gemfile.lock" }}-y-{{ checksum "yarn.lock" }}
+
 
       # Wait for the database
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
 
-      # Setup the database
-      - run: bundle exec rake db:{drop,create,migrate}
+      # Database setup
+      - run: bundle exec rails db:create db:migrate
 
-      # Run the tests
-      - run: bundle exec rake
+      # Analyze source code & clean code
+      - run:
+          name: run linting
+          command: |
+            bundle exec rubocop
+      # run tests!
+      - run:
+          name: run tests
+          command: |
+            mkdir /tmp/test-results
+            COVERAGE=true bundle exec rspec --format progress \
+                            --format RspecJunitFormatter \
+                            --out /tmp/test-results/rspec.xml \
+                            --format progress
