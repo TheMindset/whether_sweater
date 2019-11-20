@@ -46,15 +46,17 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-def stub_json(url, filename)
-  json_response = File.open(filename)
-  stub_request(:get, url).
-    to_return(status: 200, body: json_response)
-end
+# def stub_json(url, filename)
+#   json_response = File.open(filename)
+#   stub_request(:get, url).
+#     to_return(status: 200, body: json_response)
+# end
 
 VCR.configure do |config|
-  config.cassette_library_dir = "fixtures/vcr_cassettes"
+  config.cassette_library_dir = "spec/vcr_cassettes"
   config.hook_into :webmock
   config.configure_rspec_metadata!
-  config.filter_sensitive_data("<GOOGLE_MAPS_API_KEY") { ENV['GOOGLE_MAPS_API_KEY'] }
+  config.filter_sensitive_data('<GOOGLE_MAPS_API_KEY>') { ENV['GOOGLE_MAPS_API_KEY'] }
+  config.filter_sensitive_data('<DARKSKY_API_KEY>') { ENV['DARKSKY_API_KEY'] }
+  config.filter_sensitive_data('<FLICKR_API_KEY>') { ENV['FLICKR_API_KEY'] }
 end
