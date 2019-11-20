@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'User API endpoint', :vcr, type: :request do
+RSpec.describe 'User API endpoint', type: :request do
   it "#create account with a valid params" do
     params = {
       email: 'test@yopmail.com',
