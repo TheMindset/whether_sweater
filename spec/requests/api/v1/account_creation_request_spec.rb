@@ -10,13 +10,15 @@ RSpec.describe 'User API endpoint', :vcr, type: :request do
       password_confirmation: 'password'
     }
 
-    post '/api/v1/users', params: params
+    VCR.use_cassette('account_creation_request_success') do
+      post '/api/v1/users', params: params
 
-    expect(response.status).to eq(201)
+      expect(response.status).to eq(201)
 
-    response_body = JSON.parse(response.body, symbolize_names: true)
+      response_body = JSON.parse(response.body, symbolize_names: true)
 
-    expect(response_body).to have_key(:api_key)
+      expect(response_body).to have_key(:api_key)
+    end
   end
 
   it "#creation account without a valid params" do
@@ -24,12 +26,14 @@ RSpec.describe 'User API endpoint', :vcr, type: :request do
       email: 'test@yopmail.com'
     }
 
-    post '/api/v1/users', params: params
+    VCR.use_cassette('account_creation_request_failure') do
+      post '/api/v1/users', params: params
 
-    expect(response.status).to eq(400)
+      expect(response.status).to eq(400)
 
-    response_body = JSON.parse(response.body, symbolize_names: true)
+      response_body = JSON.parse(response.body, symbolize_names: true)
 
-    expect(response_body[:error]).to eq('Failed to create user')
+      expect(response_body[:error]).to eq('Failed to create user')
+    end
   end
 end
