@@ -10,4 +10,5 @@ Rails.application.routes.draw do
       post '/road_trip', to: 'road_trips#create'
     end
   end
+  root 'static#index'
 end
