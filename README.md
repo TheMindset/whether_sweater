@@ -9,7 +9,7 @@ _Whether, Sweater?_ is a [Turing School of Software & Design](https://turing.io/
 
 The deployed site's endpoints can be consumed at:
 
-...
+https://whether-sweater-check.herokuapp.com/
 
 ## Endpoints
 
